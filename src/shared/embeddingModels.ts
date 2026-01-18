@@ -32,6 +32,7 @@ export const EMBEDDING_MODEL_PROFILES: EmbeddingModelProfiles = {
 			scoreThreshold: 0.15,
 			queryPrefix: "Represent this query for searching relevant code: ",
 		},
+		"Qwen/Qwen3-Embedding-8B": { dimension: 4096, scoreThreshold: 0.4 },
 	},
 	gemini: {
 		"text-embedding-004": { dimension: 768 },
@@ -151,8 +152,9 @@ export function getModelQueryPrefix(provider: EmbedderProvider, modelId: string)
 export function getDefaultModelId(provider: EmbedderProvider): string {
 	switch (provider) {
 		case "openai":
-		case "openai-compatible":
 			return "text-embedding-3-small"
+		case "openai-compatible":
+			return "Qwen/Qwen3-Embedding-8B"
 
 		case "ollama": {
 			// Choose a sensible default for Ollama, e.g., the first one listed or a specific one
